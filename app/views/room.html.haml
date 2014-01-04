@@ -11,13 +11,27 @@
   %input#input{type:"text", value:"send a message"}
   %input{type:"submit", value:"send"}
 :javascript
+  var away = false;
   var msg_count = 0;
+  function onFocus() {
+    away = false;
+    document.title='Lip';
+  }
+  function onBlur() {
+    away = true;
+    msg_count = 0;
+  }
+
+  window.onfocus = onFocus;
+  window.onblur = onBlur;
   window.onload = function() {
     (function() {
       var show = function(el){
           return function(msg){
-            msg_count+=1;
-            document.title='('+msg_count+')';
+            if(away) {
+              msg_count+=1;
+              document.title='('+msg_count+') Lip';
+            }
             m=JSON.parse(msg);
             var bg = getCookie('user') == m.user ? 'mine' : 'theirs';
             el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="msg ' + bg + '"><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
