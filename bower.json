@@ -1,0 +1,26 @@
+{
+  "name": "APP",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  },
+  "private": true,
+  "homepage": "https://github.com/pfarrell/sinatra-shell",
+  "authors": [
+    "Patrick Farrell <mr.patfarrell@gmail.com>"
+  ],
+  "description": "base template for sinatra applicaton",
+  "keywords": [
+    "sinatra"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "test",
+    "tests",
+    "public/libs"
+  ]
+}

@@ -1,0 +1,4 @@
+public/libs
+vendor
+coverage
+.bundle
