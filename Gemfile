@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'emk-sinatra-url-for'
 gem 'sinatra-respond_to'
+gem 'sinatra-websocket'
 
 gem 'haml'
 

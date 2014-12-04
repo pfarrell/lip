@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/url_for'
 require 'sinatra/respond_to'
 require 'sinatra/cookies'
+require 'sinatra-websocket'
 require 'securerandom'
 require 'haml'
 
@@ -15,6 +16,8 @@ class App < Sinatra::Application
   enable :sessions
   set :session_secret, ENV["LIP_SESSION_SECRET"] || "youshouldreallychangethis"
   set :views, Proc.new { File.join(root, "app/views") }
+  set :server, 'thin'
+  set :sockets, []
 
   before do
     response.set_cookie(:appc, value: SecureRandom.uuid, expires: Time.now + 3600 * 24 * 365 * 10) if request.cookies["bmc"].nil?
