@@ -1,0 +1,7 @@
+%form{role:"form", action:"#{url_for('/room/new')}", method:'POST'}
+  .form-group
+    %label{for:"name"}
+      Room Name
+    %input.form-control{type:"text", id:"name", name:"name"}
+  %button.btn.btn-default{type:"submit"}
+    Create Room

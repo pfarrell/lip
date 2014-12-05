@@ -17,7 +17,7 @@ class App < Sinatra::Application
   set :session_secret, ENV["LIP_SESSION_SECRET"] || "youshouldreallychangethis"
   set :views, Proc.new { File.join(root, "app/views") }
   set :server, 'thin'
-  set :sockets, []
+  set :sockets, Hash.new{|hash,key| hash[key] = [];}
 
   before do
     response.set_cookie(:appc, value: SecureRandom.uuid, expires: Time.now + 3600 * 24 * 365 * 10) if request.cookies["bmc"].nil?
