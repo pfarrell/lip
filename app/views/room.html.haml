@@ -1,20 +1,23 @@
-=require 'byebug'
 %h1
   =room.name
+%hr
+#msgs
 %form{id:"form"}
   %input{type:"text", id:"input", value:"send a message"}
-#msgs
 :javascript
   window.onload = function() {
     (function() {
       var show = function(el){
           return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
       }(document.getElementById('msgs'));
+    function log(msg) {
+          console.log(msg);  
+        }
       //var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
       var ws       = new WebSocket('ws://localhost:9292/room/1');
-      ws.onopen    = function()  { show('websocket opened'); };
-      ws.onclose   = function()  { show('websocket closed'); }
-      ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
+      ws.onopen    = function()  { log('websocket opened'); };
+      ws.onclose   = function()  { log('websocket closed'); }
+      ws.onmessage = function(m) { show(m.data); };
 
       var sender = function(f){
         var input     = document.getElementById('input');
