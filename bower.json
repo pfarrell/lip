@@ -1,15 +1,16 @@
 {
-  "name": "APP",
+  "name": "lip",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "~3.2.0"
+    "bootstrap": "~3.2.0",
+    "reconnectingWebsocket": "*"
   },
   "private": true,
-  "homepage": "https://github.com/pfarrell/sinatra-shell",
+  "homepage": "https://github.com/pfarrel/lip.git",
   "authors": [
     "Patrick Farrell <mr.patfarrell@gmail.com>"
   ],
-  "description": "base template for sinatra applicaton",
+  "description": "websocket based chat site",
   "keywords": [
     "sinatra"
   ],
