@@ -5,3 +5,8 @@
     %input.form-control{type:"text", id:"name", name:"name"}
   %button.btn.btn-default{type:"submit"}
     Create Room
+.rooms
+  -rooms.each do |room|
+    .room
+      %a{href:"#{url_for("/room/#{room.id}")}"}
+        =room.name

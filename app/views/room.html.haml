@@ -1,30 +1,28 @@
-%h1
-  =room.name
-%hr
 #msgs
 %form{id:"form"}
-  %input{type:"text", id:"input", value:"send a message"}
+  %input#input{type:"text", value:"send a message"}
 :javascript
   window.onload = function() {
     (function() {
       var show = function(el){
-          return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
+          return function(msg){ el.innerHTML = el.innerHTML + msg + '<br />'; }
       }(document.getElementById('msgs'));
-    function log(msg) {
-          console.log(msg);  
-        }
-      //var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
-      var ws       = new WebSocket('ws://localhost:9292/room/1');
+      function log(msg) {
+        console.log(msg);  
+      }
+      var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
+      //var ws       = new WebSocket('ws://localhost:9292/room/1');
       ws.onopen    = function()  { log('websocket opened'); };
       ws.onclose   = function()  { log('websocket closed'); }
       ws.onmessage = function(m) { show(m.data); };
 
       var sender = function(f){
         var input     = document.getElementById('input');
+        var username  = document.getElementById('username');
         input.onclick = function(){ input.value = "" };
         f.onsubmit    = function(){
           ws.send(input.value);
-          input.value = "send a message";
+          //input.value = "";
           return false;
         }
       }(document.getElementById('form'));
