@@ -1,11 +1,12 @@
 #msgs
 %form{id:"form"}
   %input#input{type:"text", value:"send a message"}
+//  %input#username{type:"text"}
 :javascript
   window.onload = function() {
     (function() {
       var show = function(el){
-          return function(msg){ el.innerHTML = el.innerHTML + msg + '<br />'; }
+          return function(msg){ el.innerHTML = el.innerHTML + '<div>' + msg + '</div>'; }
       }(document.getElementById('msgs'));
       function log(msg) {
         console.log(msg);  
