@@ -1,4 +1,4 @@
-public/libs
+#public/libs
 vendor
 coverage
 .bundle
