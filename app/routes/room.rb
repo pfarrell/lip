@@ -1,4 +1,13 @@
+require 'json'
+
 class App < Sinatra::Application
+
+  def date(json_str, opts:{}) 
+    obj = JSON.parse(json_str)
+    obj[:server_date] = Time.now.getutc.to_f
+    obj.to_json(opts)
+  end
+
   get '/room/:id' do
     id = params[:id]
     if !request.websocket?
@@ -6,7 +15,7 @@ class App < Sinatra::Application
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
-        ws.onmessage { |msg| EM.next_tick { puts msg; settings.sockets[id].each{|s| s.send(msg) } } }
+        ws.onmessage { |msg| msg = date(msg); puts msg; EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } }
         ws.onclose { settings.sockets[id].delete(ws) }
       end
     end
