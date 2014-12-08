@@ -1,6 +1,10 @@
 body,html {
   height:95%;
 }
+.user { 
+  margin-right: .5em;
+}
+
 #content {
   height:100%;
 }
