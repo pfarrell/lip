@@ -6,7 +6,7 @@ class App < Sinatra::Application
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
-        ws.onmessage { |msg| EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } }
+        ws.onmessage { |msg| EM.next_tick { puts msg; settings.sockets[id].each{|s| s.send(msg) } } }
         ws.onclose { settings.sockets[id].delete(ws) }
       end
     end
