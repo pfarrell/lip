@@ -14,7 +14,7 @@
   %body
     %nav.navbar.navbar-default{role: "navigation"}
       .navbar-header
-        %button.navbar-toggle{type:"button", data:{toggle: "collapse", target: "#navbar-collapse"}}
+        %button.navbar-toggle{type:"button", data:{toggle: "collapse", target: ".navbar-collapse"}}
           %span.sr-only
             Toggle navigation
           %span.icon-bar
@@ -22,6 +22,9 @@
           %span.icon-bar
         %a.navbar-brand{href:"#{url_for("/")}"}
           Lip
+      .navbar-collapse
+        %form.navbar-form{role:"username"}
+          %input#user.form-control{type:"text", value:'guest'}
     .container#content
       =yield
     .container.footer
