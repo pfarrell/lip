@@ -27,4 +27,11 @@ class App < Sinatra::Application
     room.save
     redirect(url_for("/room/#{room.id}"))
   end
+
+  get "/rooms" do
+    rooms = Room.all
+    respond_to do | wants|
+      wants.json { rooms.to_json }
+    end
+  end
 end
