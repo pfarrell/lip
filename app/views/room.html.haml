@@ -13,16 +13,13 @@
       function log(msg) {
         console.log(msg);  
       }
-      function obj(id) {
-        return document.getElementById(id);
-      }
       function json(obj) {
         return JSON.stringify(obj);
       }
       function msg() {
         var m = new Object();
-        m.user = obj('user').value;
-        m.msg = obj('input').value;
+        m.user = getCookie('user');
+        m.msg = elem('input').value;
         m.client_date = Date.now();
         return m;
       }
