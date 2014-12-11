@@ -15,7 +15,11 @@ class App < Sinatra::Application
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
-        ws.onmessage { |msg| msg = date(msg); puts msg; EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } }
+        ws.onmessage do |msg| 
+          msg = date(msg)
+          puts msg
+          EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
+        end
         ws.onclose { settings.sockets[id].delete(ws) }
       end
     end
