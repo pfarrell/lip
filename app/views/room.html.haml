@@ -1,4 +1,11 @@
 #msgs
+  -msgs.each do |msg|
+    -m=JSON.parse(msg)
+    %div
+      %span.user
+        #{m['user']}:
+      %span.text
+        =m['msg']
 %form{id:"form"}
   %input#input{type:"text", value:"send a message"}
   %input{type:"submit", value:"send"}

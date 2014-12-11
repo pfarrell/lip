@@ -11,13 +11,14 @@ class App < Sinatra::Application
   get '/room/:id' do
     id = params[:id]
     if !request.websocket?
-      haml :room, locals: {room: Room[params[:id].to_i]}
+      haml :room, locals: {room: Room[params[:id].to_i], msgs: settings.rooms[params[:id]][0..5]}
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
         ws.onmessage do |msg| 
           msg = date(msg)
-          puts msg
+          settings.rooms[id].push(msg)
+          puts settings.rooms.inspect
           EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
         end
         ws.onclose { settings.sockets[id].delete(ws) }
