@@ -18,7 +18,6 @@ class App < Sinatra::Application
         ws.onmessage do |msg| 
           msg = date(msg)
           settings.rooms[id].push(msg)
-          puts settings.rooms.inspect
           EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
         end
         ws.onclose { settings.sockets[id].delete(ws) }

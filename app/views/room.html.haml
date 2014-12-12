@@ -15,8 +15,20 @@
       var show = function(el){
           return function(msg){
             m=JSON.parse(msg);
-            el.innerHTML = el.innerHTML + '<div><span class="user">' + m.user + ':</span><span class="text">' + m.msg + '</span></div>'; }
+            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '"><span class="user">' + m.user + ':</span><span class="text">' + m.msg + '</span></div>';
+            scroll();
+          }
       }(document.getElementById('msgs'));
+
+      function scroll(height) {
+        var height=0;
+        $("#msgs div").each(function(i,value) {
+          height += parseInt($(this).height());
+        });
+        height += '';
+        $("#msgs").animate({scrollTop: height});
+      }
+
       function log(msg) {
         console.log(msg);  
       }
