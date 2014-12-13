@@ -15,7 +15,8 @@
       var show = function(el){
           return function(msg){
             m=JSON.parse(msg);
-            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '"><span class="user">' + m.user + ':</span><span class="text">' + m.msg + '</span></div>';
+            var bubble = getCookie('user') == m.user ? 'bubble bubble--alt' : 'bubble';
+            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="' + bubble + '">' + m.msg + '</div>';
             scroll();
           }
       }(document.getElementById('msgs'));
