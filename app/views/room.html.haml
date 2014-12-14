@@ -4,7 +4,7 @@
     %div
       %span.user
         #{m['user']}:
-      %span.text
+      %span.message
         =m['msg']
 %form{id:"form"}
   %input#input{type:"text", value:"send a message"}
@@ -16,7 +16,7 @@
           return function(msg){
             m=JSON.parse(msg);
             var bubble = getCookie('user') == m.user ? 'bubble bubble--alt' : 'bubble';
-            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="' + bubble + '">' + m.msg + '</div>';
+            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class=""><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
             scroll();
           }
       }(document.getElementById('msgs'));
