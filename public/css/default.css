@@ -30,3 +30,15 @@ img {
 
 .container {
 }
+
+.msg {
+  padding:5px;
+}
+
+.theirs {
+  background-color:#B6CCCC
+}
+
+.mine {
+  background-color:#FFCCCC
+}

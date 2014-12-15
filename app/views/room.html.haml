@@ -1,7 +1,7 @@
 #msgs
   -msgs.each do |msg|
     -m=JSON.parse(msg)
-    %div
+    %div{id:"#{msg.id}"}
       %span.user
         #{m['user']}:
       %span.message
@@ -15,8 +15,8 @@
       var show = function(el){
           return function(msg){
             m=JSON.parse(msg);
-            var bubble = getCookie('user') == m.user ? 'bubble bubble--alt' : 'bubble';
-            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class=""><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
+            var bg = getCookie('user') == m.user ? 'mine' : 'theirs';
+            el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="msg ' + bg + '"><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
             scroll();
           }
       }(document.getElementById('msgs'));
