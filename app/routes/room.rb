@@ -11,7 +11,7 @@ class App < Sinatra::Application
   get '/room/:id' do
     id = params[:id]
     if !request.websocket?
-      haml :room, locals: {room: Room[params[:id].to_i], msgs: settings.rooms[params[:id]][0..5]}
+      haml :room, locals: {room: Room[params[:id].to_i], msgs: settings.rooms[params[:id]][0..5], user: cookies[:user]}
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }

@@ -1,7 +1,8 @@
 #msgs
   -msgs.each do |msg|
     -m=JSON.parse(msg)
-    %div{id:"#{msg.id}"}
+    -clzz=m['user']==user ?  'mine' : 'theirs'
+    .msg{class:"#{clzz}"}
       %span.user
         #{m['user']}:
       %span.message

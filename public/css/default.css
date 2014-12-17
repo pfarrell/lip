@@ -19,7 +19,7 @@ body,html {
   max-height: 750%;
   overflow: scroll;
   border: 4px inset green;
-  padding: 5px;
+  padding: 10px;
 }
 
 img {
@@ -32,15 +32,22 @@ img {
 }
 
 .msg {
+  border-radius:4px;
+  box-shadow:2px 2px #888888;
   padding:5px;
   border-radius:4px;
   box-shadow: 2px 2px 4px #888888;
+  margin:2px;
+}
+
+.user {
+  font-weight: bold;
 }
 
 .theirs {
-  background-color:#B6CCCC
+  background-color:#B6CCCC;
 }
 
 .mine {
-  background-color:#FFCCCC
+  background-color:#FFCCCC;
 }
