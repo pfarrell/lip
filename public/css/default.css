@@ -8,8 +8,9 @@ body,html {
 #content {
   height:100%;
 }
+
 #input{
-  width: 400px;
+  width: 90%;
   padding: 5px;
   margin-top: 5px;
 }
@@ -18,7 +19,7 @@ body,html {
   height: 75%;
   max-height: 750%;
   overflow: scroll;
-  border: 4px inset green;
+  border: 1px inset green;
   padding: 10px;
 }
 
