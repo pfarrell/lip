@@ -1,11 +1,17 @@
 require 'json'
+require 'byebug'
 
 class App < Sinatra::Application
 
-  def date(json_str, opts:{}) 
+  def meta(json_str, opts:{}) 
     obj = JSON.parse(json_str)
     obj[:server_date] = Time.now.getutc.to_f
+    obj['msg'] = expand(obj['msg'])
     obj.to_json(opts)
+  end
+
+  def expand(msg) 
+    msg.gsub(/(http.*jp[e]?g)/, "<img src='\\1' />")
   end
 
   get '/room/:id' do
@@ -16,7 +22,7 @@ class App < Sinatra::Application
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
         ws.onmessage do |msg| 
-          msg = date(msg)
+          msg = meta(msg)
           settings.rooms[id].push(msg)
           EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
         end
