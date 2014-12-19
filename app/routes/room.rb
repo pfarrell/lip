@@ -10,10 +10,10 @@ class App < Sinatra::Application
   end
 
   def expand(msg) 
-    msg.gsub!(/(http.*\.jp[e]?g)/, "<img src='\\1' />")
-    msg.gsub!(/(http.*\.png)/, "<img src='\\1' />")
-    msg.gsub!(/(http.*\.gif)/, "<img src='\\1' />")
-    msg.gsub!(/http.*youtube.com\/watch\?v=([A-Za-z0-9-_]*)/, "<iframe width='560' height='315' src='//www.youtube.com/embed/\\1' frameborder='0' allowfullscreen></iframe>")
+    msg.gsub!(/(http.*\.jp[e]?g)/, "<div><img src='\\1' /></div>")
+    msg.gsub!(/(http.*\.png)/, "<div><img src='\\1' /></div>")
+    msg.gsub!(/(http.*\.gif)/, "<div><img src='\\1' /></div>")
+    msg.gsub!(/http.*youtube.com\/watch\?v=([A-Za-z0-9-_]*)/, "<div><iframe width='560' height='315' src='//www.youtube.com/embed/\\1' frameborder='0' allowfullscreen></iframe></div>")
     puts msg
     msg
   end
