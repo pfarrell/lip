@@ -14,7 +14,7 @@ class App < Sinatra::Application
     msg.gsub!(/(http.*\.png)/, "<div><img src='\\1' /></div>")
     msg.gsub!(/(http.*\.gif)/, "<div><img src='\\1' /></div>")
     msg.gsub!(/http.*youtube.com\/watch\?v=([A-Za-z0-9\-_#=?]*)/, "<div><iframe width='560' height='315' src='//www.youtube.com/embed/\\1' frameborder='0' allowfullscreen></iframe></div>")
-    puts msg
+    msg.gsub!(/(http.*?\.html)/, "<a href='\\1' target='_'>\\1<\\a>")
     msg
   end
 
