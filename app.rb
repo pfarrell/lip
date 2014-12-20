@@ -19,7 +19,6 @@ class App < Sinatra::Application
   set :views, Proc.new { File.join(root, "app/views") }
   set :server, 'thin'
   set :sockets, Hash.new{|hash,key| hash[key] = [];}
-  set :rooms, Hash.new{|hash,key| hash[key] = [];}
   set :redis, Redis.new(:url => ENV["REDISTOGO_URL"])
 
   before do

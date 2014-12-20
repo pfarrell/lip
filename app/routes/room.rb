@@ -31,7 +31,6 @@ class App < Sinatra::Application
         ws.onmessage do |msg| 
           msg = meta(msg)
           settings.redis.rpush(id, msg)
-          settings.rooms[id].push(msg)
           EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
         end
         ws.onclose { settings.sockets[id].delete(ws) }
