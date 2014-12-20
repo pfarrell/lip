@@ -16,6 +16,7 @@ gem 'capistrano-bundler', '~> 1.1.2'
 
 gem 'sequel'
 gem 'pg'
+gem 'redis'
 
 group :development do
   gem 'rspec'

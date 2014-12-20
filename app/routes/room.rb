@@ -13,7 +13,7 @@ class App < Sinatra::Application
     msg.gsub!(/(http.*\.jp[e]?g)/, "<div><img src='\\1' /></div>")
     msg.gsub!(/(http.*\.png)/, "<div><img src='\\1' /></div>")
     msg.gsub!(/(http.*\.gif)/, "<div><img src='\\1' /></div>")
-    msg.gsub!(/http.*youtube.com\/watch\?v=([A-Za-z0-9-_#=?]*)/, "<div><iframe width='560' height='315' src='//www.youtube.com/embed/\\1' frameborder='0' allowfullscreen></iframe></div>")
+    msg.gsub!(/http.*youtube.com\/watch\?v=([A-Za-z0-9\-_#=?]*)/, "<div><iframe width='560' height='315' src='//www.youtube.com/embed/\\1' frameborder='0' allowfullscreen></iframe></div>")
     puts msg
     msg
   end
@@ -21,12 +21,16 @@ class App < Sinatra::Application
   get '/room/:id' do
     id = params[:id]
     if !request.websocket?
-      haml :room, locals: {room: Room[params[:id].to_i], msgs: settings.rooms[params[:id]][0..5], user: cookies[:user]}
+      len = settings.redis.llen(id)
+      msgs = settings.redis.lrange(id,-5,len)
+      msgs=[] if msgs == ""
+      haml :room, locals: {room: Room[id.to_i], msgs: msgs, user: cookies[:user]}
     else
       request.websocket do |ws|
         ws.onopen { settings.sockets[id] << ws }
         ws.onmessage do |msg| 
           msg = meta(msg)
+          settings.redis.rpush(id, msg)
           settings.rooms[id].push(msg)
           EM.next_tick { settings.sockets[id].each{|s| s.send(msg) } } 
         end

@@ -7,6 +7,7 @@ require 'sinatra/cookies'
 require 'sinatra-websocket'
 require 'securerandom'
 require 'haml'
+require 'redis'
 
 class App < Sinatra::Application
   helpers Sinatra::UrlForHelper
@@ -19,6 +20,7 @@ class App < Sinatra::Application
   set :server, 'thin'
   set :sockets, Hash.new{|hash,key| hash[key] = [];}
   set :rooms, Hash.new{|hash,key| hash[key] = [];}
+  set :redis, Redis.new(:url => ENV["REDISTOGO_URL"])
 
   before do
     response.set_cookie(:appc, value: SecureRandom.uuid, expires: Time.now + 3600 * 24 * 365 * 10) if request.cookies["bmc"].nil?
