@@ -11,10 +11,13 @@
   %input#input{type:"text", value:"send a message"}
   %input{type:"submit", value:"send"}
 :javascript
+  var msg_count = 0;
   window.onload = function() {
     (function() {
       var show = function(el){
           return function(msg){
+            msg_count+=1;
+            document.title='('+msg_count+')';
             m=JSON.parse(msg);
             var bg = getCookie('user') == m.user ? 'mine' : 'theirs';
             el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="msg ' + bg + '"><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
