@@ -24,7 +24,7 @@ class App < Sinatra::Application
     @title = room.name
     if !request.websocket?
       len = settings.redis.llen(id)
-      msgs = settings.redis.lrange(id,-5,len)
+      msgs = settings.redis.lrange(id,-15,len)
       msgs=[] if msgs == ""
       haml :room, locals: {room: room, msgs: msgs, user: cookies[:user]}
     else

@@ -15,7 +15,7 @@
   var msg_count = 0;
   function onFocus() {
     away = false;
-    document.title='Lip';
+    document.title="#{@title}";
   }
   function onBlur() {
     away = true;
@@ -30,12 +30,11 @@
           return function(msg){
             if(away) {
               msg_count+=1;
-              document.title='('+msg_count+') Lip';
+              document.title='('+msg_count+') #{@title}';
             }
             m=JSON.parse(msg);
             var bg = getCookie('user') == m.user ? 'mine' : 'theirs';
             el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="msg ' + bg + '"><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
-            scroll();
           }
       }(document.getElementById('msgs'));
 
@@ -66,7 +65,7 @@
       //var ws       = new WebSocket('ws://localhost:9292/room/1');
       ws.onopen    = function()  { log('websocket opened'); };
       ws.onclose   = function()  { log('websocket closed'); }
-      ws.onmessage = function(m) { show(m.data); };
+      ws.onmessage = function(m) { show(m.data); scroll();};
 
       var sender = function(f){
         input.onclick = function(){ input.value = "" };
