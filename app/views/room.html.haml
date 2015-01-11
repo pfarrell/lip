@@ -8,14 +8,25 @@
       %span.message
         =m['msg']
 %form{id:"form"}
-  %input#input{type:"text", value:"send a message"}
-  %input.btn.btn-primary{type:"submit", value:"send"}
+  %input{id:"input", type:"text", placeholder:"send a message"}
+  %input{type:"submit", value:"send"}
 :javascript
   var away = false;
   var msg_count = 0;
+
+  function scroll(height) {
+    var height=0;
+    $("#msgs div").each(function(i,value) {
+      height += parseInt($(this).height());
+    });
+    height += '';
+    $("#msgs").animate({scrollTop: height});
+  }
+
   function onFocus() {
     away = false;
     document.title="#{@title}";
+    scroll();
   }
   function onBlur() {
     away = true;
@@ -37,15 +48,6 @@
             el.innerHTML = el.innerHTML + '<div id="' + m.msg_id + '" class="msg ' + bg + '"><span class="user">' + m.user + ':</span><span class="message">' + m.msg + '</span></div>';
           }
       }(document.getElementById('msgs'));
-
-      function scroll(height) {
-        var height=0;
-        $("#msgs div").each(function(i,value) {
-          height += parseInt($(this).height());
-        });
-        height += '';
-        $("#msgs").animate({scrollTop: height});
-      }
 
       function log(msg) {
         console.log(msg);  
@@ -76,4 +78,5 @@
         }
       }(document.getElementById('form'));
     })();
+    scroll();
   } 
